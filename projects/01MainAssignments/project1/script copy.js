@@ -117,6 +117,15 @@ function keyPressed() {
         )
       });
     }
+  } else if (key === '3') {
+    exploded = false;
+    particles = [];
+
+    // Punkte neu erzeugen
+    points = font.textToPoints("Vive Ahora", -width/8, 0, fontSize, {
+      sampleFactor: 0.17
+    });
   }
 }
+
 
