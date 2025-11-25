@@ -55,7 +55,7 @@ function draw() {
   }
 
   if (showMessage && millis() - messageTimer < 1000) {
-    fill(0);
+    fill(255, 0, 150);
     textSize(30);
     textAlign(CENTER, BOTTOM);
     text(messageText, width / 2, height - 20);
