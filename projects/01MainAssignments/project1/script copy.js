@@ -3,7 +3,6 @@ let rotation = false;
 let balloonColor;
 let depth = 20;
 
-// Explosion
 let exploded = false;
 let points = [];
 let particles = [];
@@ -32,7 +31,6 @@ function draw() {
   background(150, 50, 100);
   orbitControl();
 
-  // LICHT
   ambientLight(80);
   pointLight(200, 200, 255, -300, -200, 400);
 
@@ -40,7 +38,6 @@ function draw() {
   let my = map(mouseY, 0, height, -300, 300);
   pointLight(255, 255, 255, mx, my, 300);
 
-  // Wenn explodiert → Partikel-Animation
   if (exploded) {
     rotateX(-HALF_PI);
 
@@ -58,7 +55,6 @@ function draw() {
     return; 
   }
 
-  // NORMALER TEXT
   if (rotation) {
     rotateX(frameCount / 150);
     rotateZ(mouseX / 1000);
@@ -98,7 +94,6 @@ function keyPressed() {
 
     particles = [];
 
-    // Punkte in Explosionsteilchen verwandeln
     for (let pt of points) {
       let angle = random(TWO_PI);
       let speed = random(5, 14);
@@ -121,7 +116,6 @@ function keyPressed() {
     exploded = false;
     particles = [];
 
-    // Punkte neu erzeugen
     points = font.textToPoints("Vive Ahora", -width/8, 0, fontSize, {
       sampleFactor: 0.17
     });
