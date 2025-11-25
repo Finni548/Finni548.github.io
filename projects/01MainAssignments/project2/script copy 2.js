@@ -1,6 +1,6 @@
 let circleX = [];
 let circleY = [];
-let circleSize = 50;
+let circleSize = 100;
 let numCircles = 5;
 
 let showMessage = false;   
@@ -47,7 +47,7 @@ function draw() {
       showMessage = true;
 
       if (attempts[i] >= 5) {
-        active[i] = false;   
+        active[i] = false;  
         messageText = "Yes, perfect!";
       } else {
         
