@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Malicious';
-  src: url('CsmaliciousdrawnRegularDemo-drXag.otf') format("woff2-variations");
+  font-family: 'Balloon';
+  src: url('BalloonDreams-BW1Kw.otf') format("woff2-variations");
 }
 
 
@@ -15,7 +15,7 @@
   --bg-secondary: #000000;
   --card-background: #a1a1a1;
   --bg-secondary-two: #111111;
-  --shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  --shadow: 0 10px 40px rgba(7, 1, 1, 0.2);
 
   /* Font Weight */
   --weight-small: 400;
@@ -58,7 +58,8 @@ a {
 body {
   background: var(--bg-primary);
   color: var(--text-color);
-  font-family: Malicious;
+  font-family: Balloon;
+  text-transform: uppercase;
   line-height: 1.5;
 }
 
