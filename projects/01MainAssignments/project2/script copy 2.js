@@ -1,3 +1,4 @@
+let font;
 let circleX = [];
 let circleY = [];
 let circleSize = 100;
@@ -9,6 +10,10 @@ let messageText = "";
 
 let attempts = [];          
 let active = [];            
+
+function preload() {
+  font = loadFont('BalloonDreams-BW1Kw.otf');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -24,10 +29,11 @@ function setup() {
 function draw() {
   background(255, 209, 220);
 
-  fill(255, 0, 150);
+  fill(150, 30, 155);
+  textFont(font);
   textSize(50);
   textAlign(CENTER, TOP);
-  text("Catch me if you can", width / 2, 20);
+  text("CATCH ME IF YOU CAN", width / 2, 20);
 
   noStroke();
 
@@ -45,17 +51,18 @@ function draw() {
 
       if (attempts[i] >= 5) {
         active[i] = false;
-        messageText = "Yes, perfect!";
+        messageText = "YES, PERFECT!";
       } else {
         circleX[i] = random(circleSize / 2, width - circleSize / 2);
         circleY[i] = random(circleSize / 2, height - circleSize / 2);
-        messageText = "next time";
+        messageText = "NEXT TIME";
       }
     }
   }
 
   if (showMessage && millis() - messageTimer < 1000) {
-    fill(255, 0, 150);
+	 textFont(font);
+	 fill(150, 30, 155);
     textSize(30);
     textAlign(CENTER, BOTTOM);
     text(messageText, width / 2, height - 20);
