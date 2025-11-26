@@ -1,4 +1,8 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@font-face {
+  font-family: 'Malicious';
+  src: url('CsmaliciousdrawnRegularDemo-drXag.otf') format("woff2-variations");
+}
+
 
 /* variables */
 :root {
@@ -6,7 +10,7 @@
   --primary-color: #ffcd42;
   --secondary-color: #ffd35c;
   --bg-primary: #ffffff;
-  --text-color: #222222;
+  --text-color: #FFB6C1;
   --text-color-two: #ffffff;
   --bg-secondary: #000000;
   --card-background: #a1a1a1;
@@ -54,7 +58,7 @@ a {
 body {
   background: var(--bg-primary);
   color: var(--text-color);
-  font-family: "Raleway", sans-serif;
+  font-family: Malicious;
   line-height: 1.5;
 }
 
