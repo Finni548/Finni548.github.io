@@ -7,12 +7,14 @@ let numCircles = 5;
 let circleVX = [];
 let circleVY = [];
 
-let showMessage = false;   
-let messageTimer = 0;      
-let messageText = "";      
+let showMessage = false;
+let messageTimer = 0;
+let messageText = "";
 
-let attempts = [];          
-let active = [];            
+let active = [];
+
+let bgFlash = false;
+let bgFlashStart = 0;
 
 function preload() {
   font = loadFont('BalloonDreams-BW1Kw.otf');
@@ -25,16 +27,21 @@ function setup() {
     circleX[i] = random(circleSize / 2, width - circleSize / 2);
     circleY[i] = random(circleSize / 2, height - circleSize / 2);
 
-    circleVX[i] = random(-2, 2);
-    circleVY[i] = random(-2, 2);
+    circleVX[i] = random(-3, 3);
+    circleVY[i] = random(-3, 3);
 
-    attempts[i] = 0;
     active[i] = true;
   }
 }
 
 function draw() {
-  background(255, 209, 220);
+
+  if (bgFlash && millis() - bgFlashStart < 200) {
+    background(255, 60, 180); 
+  } else {
+    background(255, 209, 220);  
+    bgFlash = false;
+  }
 
   fill(150, 30, 155);
   textFont(font);
@@ -47,10 +54,8 @@ function draw() {
   for (let i = 0; i < numCircles; i++) {
     if (!active[i]) continue;
 
-
     circleX[i] += circleVX[i];
     circleY[i] += circleVY[i];
-
 
     if (circleX[i] < circleSize/2 || circleX[i] > width - circleSize/2) {
       circleVX[i] *= -1;
@@ -64,24 +69,28 @@ function draw() {
     let d = dist(mouseX, mouseY, circleX[i], circleY[i]);
 
     if (d < circleSize) {
-      attempts[i]++;
-      messageTimer = millis();
-      showMessage = true;
 
-      if (attempts[i] >= 5) {
+      let catchChance = random();
+
+      if (catchChance < 0.15) {
+
         active[i] = false;
         messageText = "YES, PERFECT!";
+        bgFlash = true;
+        bgFlashStart = millis();
       } else {
-    
+       
+        messageText = "NEXT TIME";
+
         circleX[i] = random(circleSize / 2, width - circleSize / 2);
         circleY[i] = random(circleSize / 2, height - circleSize / 2);
 
-    
-        circleVX[i] = random(-2, 2);
-        circleVY[i] = random(-2, 2);
-
-        messageText = "NEXT TIME";
+        circleVX[i] = random(-3, 3);
+        circleVY[i] = random(-3, 3);
       }
+
+      messageTimer = millis();
+      showMessage = true;
     }
   }
 
