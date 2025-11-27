@@ -4,6 +4,9 @@ let circleY = [];
 let circleSize = 100;
 let numCircles = 5;
 
+let circleVX = [];
+let circleVY = [];
+
 let showMessage = false;   
 let messageTimer = 0;      
 let messageText = "";      
@@ -21,6 +24,10 @@ function setup() {
   for (let i = 0; i < numCircles; i++) {
     circleX[i] = random(circleSize / 2, width - circleSize / 2);
     circleY[i] = random(circleSize / 2, height - circleSize / 2);
+
+    circleVX[i] = random(-2, 2);
+    circleVY[i] = random(-2, 2);
+
     attempts[i] = 0;
     active[i] = true;
   }
@@ -40,6 +47,18 @@ function draw() {
   for (let i = 0; i < numCircles; i++) {
     if (!active[i]) continue;
 
+
+    circleX[i] += circleVX[i];
+    circleY[i] += circleVY[i];
+
+
+    if (circleX[i] < circleSize/2 || circleX[i] > width - circleSize/2) {
+      circleVX[i] *= -1;
+    }
+    if (circleY[i] < circleSize/2 || circleY[i] > height - circleSize/2) {
+      circleVY[i] *= -1;
+    }
+
     drawBubble(circleX[i], circleY[i], circleSize);
 
     let d = dist(mouseX, mouseY, circleX[i], circleY[i]);
@@ -53,16 +72,22 @@ function draw() {
         active[i] = false;
         messageText = "YES, PERFECT!";
       } else {
+    
         circleX[i] = random(circleSize / 2, width - circleSize / 2);
         circleY[i] = random(circleSize / 2, height - circleSize / 2);
+
+    
+        circleVX[i] = random(-2, 2);
+        circleVY[i] = random(-2, 2);
+
         messageText = "NEXT TIME";
       }
     }
   }
 
   if (showMessage && millis() - messageTimer < 1000) {
-	 textFont(font);
-	 fill(150, 30, 155);
+    textFont(font);
+    fill(150, 30, 155);
     textSize(30);
     textAlign(CENTER, BOTTOM);
     text(messageText, width / 2, height - 20);
@@ -70,23 +95,18 @@ function draw() {
 }
 
 function drawBubble(x, y, s) {
-  // Äußere Schicht
   fill(255, 255, 255, 40);
   ellipse(x, y, s * 1.15);
 
-  // Hauptkörper
   fill(180, 200, 255, 120);
   ellipse(x, y, s);
 
-  // Schimmer
   fill(255, 255, 255, 180);
   ellipse(x - s * 0.2, y - s * 0.2, s * 0.35);
 
-  // zarter Rand
   noFill();
   stroke(255, 255, 255, 150);
   strokeWeight(1);
   ellipse(x, y, s);
   noStroke();
 }
-
