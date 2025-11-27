@@ -28,7 +28,7 @@ function setup() {
 }
 
 function draw() {
-  background(random(100, 255), random(100, 255), random(100, 255));
+  background(150, 50, 100);
   orbitControl();
 
   ambientLight(80);
