@@ -3,10 +3,14 @@ let rotation = false;
 let balloonColor;
 let depth = 20;
 
+// Explosion
 let exploded = false;
 let points = [];
 let particles = [];
 let fontSize;
+
+// Hintergrundfarbe (wird in draw() verwendet)
+let bgColor;
 
 function preload() {
   font = loadFont('BalloonDreams-BW1Kw.otf');
@@ -21,16 +25,21 @@ function setup() {
 
   balloonColor = color(255, 170, 200);
 
-  // Text zu Punkten umwandeln
+  // initiale Hintergrundfarbe
+  bgColor = color(150, 50, 100);
+
+  // Text zu Punkten konvertieren
   points = font.textToPoints("Vive Ahora", -width/8, 0, fontSize, {
     sampleFactor: 0.17
   });
 }
 
 function draw() {
-  background(150, 50, 100);
+  // benutze die variable Hintergrundfarbe
+  background(bgColor);
   orbitControl();
 
+  // LICHT
   ambientLight(80);
   pointLight(200, 200, 255, -300, -200, 400);
 
@@ -38,6 +47,7 @@ function draw() {
   let my = map(mouseY, 0, height, -300, 300);
   pointLight(255, 255, 255, mx, my, 300);
 
+  // Wenn explodiert -> Partikel animieren
   if (exploded) {
     rotateX(-HALF_PI);
 
@@ -52,9 +62,10 @@ function draw() {
       p.pos.add(p.vel);
       p.vel.mult(0.97);
     }
-    return; 
+    return;
   }
 
+  // normale Textdarstellung
   if (rotation) {
     rotateX(frameCount / 150);
     rotateZ(mouseX / 1000);
@@ -67,10 +78,8 @@ function draw() {
   for (let i = 0; i < depth; i++) {
     push();
     translate(0, 0, -i);
-
     specularMaterial(balloonColor);
     shininess(100);
-
     text("Vive Ahora", 0, 0);
     pop();
   }
@@ -83,15 +92,29 @@ function draw() {
 }
 
 function mousePressed() {
-   rotation = !rotation;
+  rotation = !rotation;
 }
 
 function keyPressed() {
+  // Taste 1 -> zufällige Textfarbe
   if (key === '1') {
-    balloonColor = color(random(255), random(255), random(255));
-  } else if (!exploded) {
+    balloonColor = color(
+      random(100, 255),
+      random(100, 255),
+      random(100, 255)
+    );
+  }
+  // Taste 6 -> Hintergrund dauerhaft zufällig setzen
+  else if (key === '6') {
+    bgColor = color(
+      random(100, 255),
+      random(100, 255),
+      random(100, 255)
+    );
+  }
+  // Explosion starten (jede andere Taste außer 1,3,6)
+  else if (!exploded) {
     exploded = true;
-
     particles = [];
 
     for (let pt of points) {
@@ -112,7 +135,9 @@ function keyPressed() {
         )
       });
     }
-  } else if (key === '3') {
+  }
+  // Taste 3 -> Explosion zurücksetzen
+  else if (key === '3') {
     exploded = false;
     particles = [];
 
